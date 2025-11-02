@@ -5,6 +5,9 @@ set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 cmake_minimum_required(VERSION 3.20.0 FATAL_ERROR)
 
 project(OpenGLStarter)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Add all Source Files
 file(GLOB_RECURSE SOURCE_FILES 
@@ -23,6 +26,8 @@ add_executable(${PROJECT_NAME} ${HEADER_FILES} ${SOURCE_FILES})
 # Find the Required Packages (if Any -> OpenGL/Vulkan or Any)
 find_package(OpenGL REQUIRED)
 
+
+
 # Variable for the Libs to add to the Linkers
 if (WIN32)
 	set(LIBS glfw opengl32 glad)
@@ -35,11 +40,13 @@ endif ()
 # Variables for Paths of External Libraries
 set(GLFW_ROOT_DIR external/glfw)
 set(GLAD_ROOT_DIR external/glad)
+set(GLM_ROOT_DIR external/glm)
 
 
 # Add the External Libraries / Files Directory
 add_subdirectory(${GLFW_ROOT_DIR})
 add_subdirectory(${GLAD_ROOT_DIR})
+
 
 # Add the Include Directories for the Libraries / Files
 #Used for adding #include into the cpp files
@@ -49,6 +56,7 @@ add_subdirectory(${GLAD_ROOT_DIR})
 target_include_directories(${PROJECT_NAME} 
 	PUBLIC ${GLFW_ROOT_DIR}/include
 	PUBLIC ${GLAD_ROOT_DIR}/include/glad
+	PUBLIC ${GLM_ROOT_DIR}
 )
 
 #		Include Files from Outside the Workspace Folder -> Like Vulkan SDK
