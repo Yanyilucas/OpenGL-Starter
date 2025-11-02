@@ -42,6 +42,11 @@ int main() {
 		return -1;
 	}
 
+	// print OpenGL GLSL GLFW versions
+	std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
+	std::cout << "GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
+	std::cout << "GLFW Version: " << glfwGetVersionString() << std::endl;
+
 	// render loop
 	// -----------
 	while (!glfwWindowShouldClose(window)) {

@@ -1,7 +1,7 @@
 # Get CMake PreDefined Variables https://cmake.org/cmake/help/latest/manual/cmake-variables.7.html
 # This CMake File for OpenGL Projects is compiled by Kushagra
 # I do not claim that this is the best CMake Configuration you will get but it does work.
-
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 cmake_minimum_required(VERSION 3.20.0 FATAL_ERROR)
 
 project(OpenGLStarter)
@@ -26,8 +26,10 @@ find_package(OpenGL REQUIRED)
 # Variable for the Libs to add to the Linkers
 if (WIN32)
 	set(LIBS glfw opengl32 glad)
+elseif (APPLE)
+	set(LIBS glfw glad "-framework OpenGL" "-framework Cocoa" "-framework IOKit" "-framework CoreFoundation")
 elseif (UNIX)
-	set(LIBS glfw GL glad)
+	set(LIBS glfw GL glad X11 pthread dl)
 endif ()
 
 # Variables for Paths of External Libraries
@@ -62,7 +64,7 @@ target_include_directories(${PROJECT_NAME}
 
 target_link_directories(${PROJECT_NAME} 
 	PRIVATE ${GLFW_ROOT_DIR}/src
-	PRIVATE ${GLAD_ROOT_DIR}/src}
+	PRIVATE ${GLAD_ROOT_DIR}/src
 )
 
 # Add the Libs to the Linker for the Project
