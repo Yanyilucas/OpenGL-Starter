@@ -1,4 +1,5 @@
 # C++ GitIgnore
+.vscode/*
 build/*
 # Prerequisites
 *.d

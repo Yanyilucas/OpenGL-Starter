@@ -1,0 +1,35 @@
+name: Lint Commit Messages
+
+on:
+  pull_request:
+    branches: [ main, master, dev ]
+
+jobs:
+  check-commits:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout full commit history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify commit messages
+        run: |
+          echo "🔍 Checking commit messages..."
+          pattern='^(feat|fix|refactor|docs|style|test|chore|ci|build)\([a-zA-Z0-9_-]+\): .+'
+          invalid=0
+          for sha in $(git rev-list origin/${{ github.base_ref }}..HEAD); do
+            msg=$(git log -1 --pretty=%s $sha)
+            if ! echo "$msg" | grep -Eq "$pattern"; then
+              echo "❌ Invalid commit message: \"$msg\""
+              invalid=1
+            else
+              echo "✅ $msg"
+            fi
+          done
+          if [ $invalid -eq 1 ]; then
+            echo "🚫 One or more commit messages do not match the required format."
+            echo "Expected: <type>(<scope>): <subject>"
+            exit 1
+          fi
