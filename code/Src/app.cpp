@@ -1,6 +1,10 @@
 #include "app.h"
 
+
 #include <iostream>
+#include <glm/gtc/matrix_transform.hpp>
+
+
 App::App(int width, int height, const char* title) : SCR_WIDTH(width), SCR_HEIGHT(height)
 {
     // glfw: initialize and configure
@@ -29,11 +33,14 @@ App::App(int width, int height, const char* title) : SCR_WIDTH(width), SCR_HEIGH
 
     // glad: load all OpenGL function pointers
     // ---------------------------------------
-    if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         std::cout << "Failed to initialize GLAD" << std::endl;
         exit(-1);
     }
+
+    // Enable depth testing for proper 3D rendering
+    glEnable(GL_DEPTH_TEST);
 
     // print versions
     // --------------
@@ -74,12 +81,22 @@ void App::run()
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
+
 }
 
-// single step render function
+// render function
+//----------------
 void App::render()
 {
-    // clear the colorbuffer
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    // clear the colorbuffer and depthbuffer
+
+
+    // camera
+    //------
+    /*code*/
+
+
+    // renderer
+    //-----------
+    /*code*/
 }

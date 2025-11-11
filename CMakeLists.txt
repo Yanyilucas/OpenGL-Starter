@@ -11,13 +11,14 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Add all Source Files
 file(GLOB_RECURSE SOURCE_FILES 
-	${CMAKE_SOURCE_DIR}/src/*.cpp
+	${CMAKE_SOURCE_DIR}/code/Src/*.cpp
+	${CMAKE_SOURCE_DIR}/code/*.cpp
 )
 
 # Add all Header Files
 file(GLOB_RECURSE HEADER_FILES 
-	${CMAKE_SOURCE_DIR}/src/*.h
-	${CMAKE_SOURCE_DIR}/src/*.hpp
+	${CMAKE_SOURCE_DIR}/code/Inc/*.h
+	${CMAKE_SOURCE_DIR}/code/Inc/*.hpp
 )
 
 add_executable(${PROJECT_NAME} ${HEADER_FILES} ${SOURCE_FILES})
@@ -41,7 +42,7 @@ endif ()
 set(GLFW_ROOT_DIR external/glfw)
 set(GLAD_ROOT_DIR external/glad)
 set(GLM_ROOT_DIR external/glm)
-
+set(STB_ROOT_DIR external/stb)
 
 # Add the External Libraries / Files Directory
 add_subdirectory(${GLFW_ROOT_DIR})
@@ -57,6 +58,8 @@ target_include_directories(${PROJECT_NAME}
 	PUBLIC ${GLFW_ROOT_DIR}/include
 	PUBLIC ${GLAD_ROOT_DIR}/include/glad
 	PUBLIC ${GLM_ROOT_DIR}
+	PUBLIC ${STB_ROOT_DIR}
+	PUBLIC ${CMAKE_SOURCE_DIR}/code/Inc
 )
 
 #		Include Files from Outside the Workspace Folder -> Like Vulkan SDK
