@@ -1,6 +1,8 @@
 #pragma once
+#include "renderer.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include<memory>
 
 class App
 {
@@ -16,4 +18,6 @@ private:
   GLFWwindow* window;
   unsigned int SCR_WIDTH;
   unsigned int SCR_HEIGHT;
+
+  std::unique_ptr<Renderer> renderer; //RAII for Renderer
 };

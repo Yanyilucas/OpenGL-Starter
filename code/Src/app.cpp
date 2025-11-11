@@ -1,9 +1,5 @@
 #include "app.h"
-
-
 #include <iostream>
-#include <glm/gtc/matrix_transform.hpp>
-
 
 App::App(int width, int height, const char* title) : SCR_WIDTH(width), SCR_HEIGHT(height)
 {
@@ -42,6 +38,10 @@ App::App(int width, int height, const char* title) : SCR_WIDTH(width), SCR_HEIGH
     // Enable depth testing for proper 3D rendering
     glEnable(GL_DEPTH_TEST);
 
+    //renderer initialization
+    renderer = std::make_unique<Renderer>(width, height);
+    renderer->Init();
+
     // print versions
     // --------------
     std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
@@ -66,11 +66,21 @@ App::~App()
 //-----------
 void App::run()
 {
+    float lastFrame = 0.0f;
     while (!glfwWindowShouldClose(window))
     {
+        // delta time calculation
+        float currentFrame = static_cast<float>(glfwGetTime());
+        float deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+
         // input
         // -----
         processInput(window);
+
+        // update
+        // ------
+        renderer->Update(deltaTime);
 
         // render
         // ------
@@ -88,15 +98,9 @@ void App::run()
 //----------------
 void App::render()
 {
-    // clear the colorbuffer and depthbuffer
-
-
-    // camera
-    //------
-    /*code*/
-
-
-    // renderer
-    //-----------
-    /*code*/
+    glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_DEPTH_TEST);
+    //Renderer here
+    renderer->Render();
 }
