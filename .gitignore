@@ -1,7 +1,12 @@
+# Resources
+resources/*
+!resources/skybox/
+!resources/skybox/**
+
 # C++ GitIgnore
 .vscode/*
 build/*
-resources/*
+
 # Prerequisites
 *.d
 
