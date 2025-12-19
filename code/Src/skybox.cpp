@@ -121,7 +121,7 @@ void Skybox::Render(const glm::mat4& view, const glm::mat4& projection)
     shader->use();
 
     // Set uniforms: view and projection matrices
-    shader->setMat4("view", view);
+    shader->setMat4("view", glm::mat4(glm::mat3(view))); // Remove translation from the view matrix
     shader->setMat4("projection", projection);
 
     glBindVertexArray(skyboxVAO);

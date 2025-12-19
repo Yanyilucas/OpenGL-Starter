@@ -22,13 +22,13 @@ glm::mat4 Camera::GetProjectionMatrix(float aspect) const
 
 void Camera::RotateAroundY(float angularSpeed, float deltaTime)
 {
-    // 更新角度
+    // // 更新角度
     yaw += angularSpeed * deltaTime;
 
     // 保持相机位置在原点
     position = glm::vec3(0.0f, 0.0f, 0.0f);
 
-    // 计算front向量绕Y轴旋转
+    // // 计算front向量绕Y轴旋转
     front.x = sin(glm::radians(yaw));
     front.y = 0.0f;
     front.z = -cos(glm::radians(yaw));
